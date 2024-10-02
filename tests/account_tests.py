@@ -36,11 +36,11 @@ def test_overdraw_checking():
     account.withdraw(100)
     assert account.balance == -50
 
-
 def test_overdraw_savings():
     account = Account('savings')
-    account.deposit(50)
-    account.withdraw(25)
-    assert account.balance == 25
+    account.deposit(100)
+    with pytest.raises(ValueError) as ve:
 
- # TO DO: fix overdraw savings test
+        account.withdraw(150)
+    assert str(ve.value) == 'Cannot overdraw on a savings account'
+    assert account.balance == 100
