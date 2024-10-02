@@ -1,3 +1,5 @@
+import pytest
+
 class Account:
 
     def __init__(self, account_type: str):
@@ -40,7 +42,6 @@ def test_overdraw_savings():
     account = Account('savings')
     account.deposit(100)
     with pytest.raises(ValueError) as ve:
-
         account.withdraw(150)
     assert str(ve.value) == 'Cannot overdraw on a savings account'
     assert account.balance == 100
